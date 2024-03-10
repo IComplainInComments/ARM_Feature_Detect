@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <inttypes.h>
 
+// Prints the String buffer into the binary representation
 void print_bin(char* bin){
   int8_t j = 0;
   int8_t count = 0;
@@ -17,6 +18,7 @@ void print_bin(char* bin){
   }
 }
 
+// Converts the decimal value into a binary string
 void dec2bin(uint64_t c){
    char vals[64];
    int8_t i = 0;
@@ -30,6 +32,7 @@ void dec2bin(uint64_t c){
    print_bin(vals);
 }
 
+// Collects data from registers
 void dump_registers(int64_t* value) {
     asm inline("mrs %0, ID_AA64PFR0_EL1" : "=r" (value[0]));
     asm inline("mrs %0, ID_AA64PFR1_EL1" : "=r" (value[1]));
