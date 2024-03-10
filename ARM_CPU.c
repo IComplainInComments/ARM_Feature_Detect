@@ -2,18 +2,35 @@
 #include <stdint.h>
 #include <inttypes.h>
 
-void dec2bin(uint64_t c){
-   int i = 0;
-   for(i = 63; i >= 0; i--){
-     if((c & (1 << i)) != 0){
-       printf("1");
-     }else{
-       printf("0");
-     } 
-   }
+void print_bin(char* bin){
+  int8_t j = 0;
+  int8_t count = 0;
+  for(j = 63; j >= 0; j--){
+    printf("%c\n",bin[j]);
+    count++;
+    if(count == 0){
+      printf("----\n");
+    }else if(count == 4){
+      printf("----\n");
+      count = 0;
+    }
+  }
 }
 
-void dump_registers(uint64_t* value) {
+void dec2bin(uint64_t c){
+   char vals[64];
+   int8_t i = 0;
+   for(i = 63; i >= 0; i--){
+     if((c & (1 << i)) != 0){
+       vals[i] = '1';
+     }else{
+       vals[i] = '0';
+     }
+   }
+   print_bin(vals);
+}
+
+void dump_registers(int64_t* value) {
     asm inline("mrs %0, ID_AA64PFR0_EL1" : "=r" (value[0]));
     asm inline("mrs %0, ID_AA64PFR1_EL1" : "=r" (value[1]));
     asm inline("mrs %0, ID_AA64AFR0_EL1" : "=r" (value[2]));
@@ -27,36 +44,36 @@ void dump_registers(uint64_t* value) {
 }
 
 int main() {
-    uint64_t register_info[10];
+    int64_t register_info[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     dump_registers(register_info);
-    printf("ID_PFR0 register value: ");
+    printf("## ID_PFR0 register value ##\n");
     dec2bin(register_info[0]);
     printf("\n");
-    printf("ID_PFR1 register value: ");
+    printf("## ID_PFR1 register value ##\n");
     dec2bin(register_info[1]);
     printf("\n");
-    printf("ID_AFR0 register value: ");
+    printf("## ID_AFR0 register value ##\n");
     dec2bin(register_info[2]);
     printf("\n");
-    printf("ID_DFR0 register value: ");
+    printf("## ID_DFR0 register value ##\n");
     dec2bin(register_info[3]);
     printf("\n");
-    printf("ID_MMFR0 register value: ");
+    printf("## ID_MMFR0 register value ##\n");
     dec2bin(register_info[4]);
     printf("\n");
-    printf("ID_MMFR1 register value: ");
+    printf("## ID_MMFR1 register value ##\n");
     dec2bin(register_info[5]);
     printf("\n");
-    printf("ID_MMFR2 register value: ");
+    printf("## ID_MMFR2 register value ##\n");
     dec2bin(register_info[6]);
     printf("\n");
-    printf("ID_ISAR0 register value: ");
+    printf("## ID_ISAR0 register value ##\n");
     dec2bin(register_info[7]);
     printf("\n");
-    printf("ID_ISAR1 register value: ");
+    printf("## ID_ISAR1 register value ##\n");
     dec2bin(register_info[8]);
     printf("\n");
-    printf("ID_ISAR2 register value: ");
+    printf("## ID_ISAR2 register value ##\n");
     dec2bin(register_info[9]);
     printf("\n");
     return 0;
