@@ -1,4 +1,4 @@
-# ARM_Feature_Detect
+# ARM_Feature_Detect (Program in Alpha)
 
 A program to detect ARM64 (AARCH64) CPU features
 
