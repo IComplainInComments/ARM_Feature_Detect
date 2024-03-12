@@ -19,7 +19,7 @@ void print_bin(uint64_t* bin){
 }
 
 // Converts the decimal value into a binary string
-void dec2bin(int64_t dec, uint64_t* bin_vals){
+void dec2bin(uint64_t dec, uint64_t* bin_vals){
     uint64_t i = 0; 
     while (dec > 0) { 
         // storing remainder in binary array 
@@ -32,7 +32,7 @@ void dec2bin(int64_t dec, uint64_t* bin_vals){
 }
 
 // Collects data from registers
-void dump_registers(int64_t* value) {
+void dump_registers(uint64_t* value) {
     asm inline("mrs %0, ID_AA64PFR0_EL1" : "=r" (value[0]));
     asm inline("mrs %0, ID_AA64PFR1_EL1" : "=r" (value[1]));
     asm inline("mrs %0, ID_AA64AFR0_EL1" : "=r" (value[2]));
@@ -46,8 +46,7 @@ void dump_registers(int64_t* value) {
 }
 
 int main() {
-    int64_t register_info[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    //int64_t* reg_dumps[10] = &register_info;
+    uint64_t register_info[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     reg_vals binary_register_vals;
     reg_vals* regs = &binary_register_vals;
     dump_registers(register_info);
